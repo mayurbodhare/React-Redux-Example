@@ -3,22 +3,27 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { accountReducer } from './reducers/accounts';
 import { bonusReducer } from './reducers/bonus';
 import { Provider } from 'react-redux';
+import rewardReducer from './reducer/reward';
+import { adminApi } from './api/adminSlice';
 
-//store
-const store = createStore(
-  combineReducers({
+// state 
+const store = configureStore({
+  reducer: {
     account: accountReducer,
-    bonus: bonusReducer
-  }),
-  applyMiddleware(logger, thunk)
-);
-
+    bonus: bonusReducer,
+    reward: rewardReducer,
+    [adminApi.reducerPath] : adminApi.reducer
+  },
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat(adminApi.middleware)
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

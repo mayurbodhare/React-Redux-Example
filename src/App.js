@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux';
 import './App.css';
 import Account from './components/Account';
 import Bonus from './components/Bonus';
+import Reward from './components/Reward';
+import Admin from './components/Admin';
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
       
       <Account></Account>
       <Bonus></Bonus>
+      <Reward></Reward>
+      <Admin></Admin>
     </div>
   );
 }
